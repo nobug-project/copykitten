@@ -144,14 +144,14 @@ def test_paste_image(test_image: Image.Image, write_clipboard_image: WriteClipbo
 
 def test_paste_file_list(
     tmp_path: Path,
-    paste_file_list: WriteClipboardFileList,
+    write_clipboard_file_list: WriteClipboardFileList,
 ):
     file1 = tmp_path / "file1.txt"
     file2 = tmp_path / "file2.txt"
     file1.touch()
     file2.touch()
     file_list = [str(file1), str(file2)]
-    paste_file_list(file_list)
+    write_clipboard_file_list(file_list)
     sleep(SLEEP_TIME)
 
     actual = copykitten.paste_file_list()

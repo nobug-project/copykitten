@@ -50,7 +50,7 @@ def read_clipboard_file_list(clipboard) -> ReadClipboardFileList:
 
 
 @pytest.fixture(scope="session")
-def paste_file_list(clipboard) -> WriteClipboardFileList:
+def write_clipboard_file_list(clipboard) -> WriteClipboardFileList:
     return clipboard.write_file_list
 
 
