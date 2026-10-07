@@ -71,11 +71,11 @@ def test_clear_linux(
     copykitten.clear()
     sleep(SLEEP_TIME)
 
-    with pytest.raises(subprocess.CalledProcessError) as exc, capfd.disabled():
+    with pytest.raises(subprocess.CalledProcessError) as exc:
         read_clipboard()
 
-        assert exc.value.returncode == 1
-        assert exc.value.stderr == "Error: target STRING not available"
+    assert exc.value.returncode == 1
+    assert capfd.readouterr().err == "Error: target STRING not available\n"
 
 
 @pytest.mark.repeat(ITERATIONS)
@@ -168,11 +168,11 @@ def test_copy_no_detach(capfd: pytest.CaptureFixture[str], read_clipboard: ReadC
     # The clipboard content becomes unavailable due to the responsible process exiting.
     # In this case xclip returns an error. Also, disable pytest's stderr capturing
     # to properly check the exception.
-    with pytest.raises(subprocess.CalledProcessError) as exc, capfd.disabled():
+    with pytest.raises(subprocess.CalledProcessError) as exc:
         read_clipboard()
 
-        assert exc.value.returncode == 1
-        assert exc.value.stderr == "Error: target STRING not available"
+    assert exc.value.returncode == 1
+    assert capfd.readouterr().err == "Error: target STRING not available\n"
 
 
 @pytest.mark.skipif(sys.platform != "linux", reason="Detach is supported only on Linux")
